@@ -485,18 +485,18 @@ def process_ontology_archive(zip_file_path, progress=gr.Progress()):
 # ==================== СОЗДАНИЕ ИНТЕРФЕЙСА ====================
 
 with gr.Blocks(
-    theme=gr.themes.Soft(
-        primary_hue="blue",
-        secondary_hue="purple",
-    ),
     title="🏭 Обработчик онтологии ГРМ",
-    css="""
+) as demo:
+    
+    # CSS перемещаем внутрь
+    gr.HTML("""
+    <style>
     .gradio-container { max-width: 1200px !important; }
     .success-box { background-color: #e8f5e9; padding: 20px; border-radius: 10px; border-left: 5px solid #4caf50; }
     .warning-box { background-color: #fff3e0; padding: 20px; border-radius: 10px; border-left: 5px solid #ff9800; }
     .file-info { font-family: monospace; background-color: #f5f5f5; padding: 10px; border-radius: 5px; }
-    """
-) as demo:
+    </style>
+    """)
     
     # Заголовок
     gr.HTML("""
@@ -606,7 +606,7 @@ with gr.Blocks(
                 label="📋 Отчет о работе",
                 lines=15,
                 interactive=False,
-                show_copy_button=True
+                # show_copy_button=True
             )
             
             # Прогресс-бар (невидимый, используется для обновлений)
@@ -677,5 +677,9 @@ if __name__ == "__main__":
         server_name="0.0.0.0",
         server_port=7860,
         share=False,
-        show_error=True
+        debug=True,
+        theme=gr.themes.Soft(
+            primary_hue="blue",
+            secondary_hue="purple",
+        )
     )
